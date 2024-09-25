@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sre-airports-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sre-airports-api
+  template:
+    metadata:
+      labels:
+        app: sre-airports-api
+    spec:
+      containers:
+        - name: sre-airports-api
+          image: polymerpro/sre-airports-api:latest
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sre-airports-api
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: sre-airports-api
