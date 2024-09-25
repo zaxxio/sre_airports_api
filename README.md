@@ -17,6 +17,3 @@ https://hub.docker.com/repository/docker/polymerpro/sre-airports-api
 # Kubernetes Endpoint to check the services
 http://34.135.84.233:8080/airports
 
-
-# However i've not added loadbalancer for traffic spilting and kubernetes automatic deployment.
-# I'm new GCP and but has experience in AWS.
