@@ -1,5 +1,15 @@
 # ✈️ Airport API
+# Containerized Go App
+```shell
+docker build -t sre_airports_api .
+docker run -p 8080:8080 sre_airports_api
+```
 
+
+
+
+
+# ========================================
 This API provides information about airports of Bangladesh.  
 It is written in Go and uses a simple in-memory database to store airport data.
 
