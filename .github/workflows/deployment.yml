@@ -3,14 +3,14 @@ name: Build and Deploy to Docker Hub
 on:
   push:
     branches:
-      - master
+      - main
 
 env:
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}  
   DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}        
-  IMAGE_NAME: githuction
+  IMAGE_NAME: sre-airports-api
   IMAGE_TAG: latest
-  CLUSTER_NAME: sre-airports-api-cluster
+  CLUSTER_NAME: ${{ secrets.CLUSTER_ENDPOINT }}
 
 jobs:
   build:
