@@ -116,84 +116,8 @@ func AirportsV2(w http.ResponseWriter, r *http.Request) {
 // ##############################
 
 // UpdateAirportImage handler for updating airport images
-// UpdateAirportImage handler for updating airport images using airport name
 func UpdateAirportImage(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
 
-	// Parse the multipart form data (limit to 10 MB)
-	err := r.ParseMultipartForm(10 << 20) // 10 MB
-	if err != nil {
-		http.Error(w, "Unable to parse form", http.StatusBadRequest)
-		return
-	}
-
-	// Retrieve file from form
-	file, handler, err := r.FormFile("image")
-	if err != nil {
-		http.Error(w, "Error retrieving the file", http.StatusBadRequest)
-		return
-	}
-	defer file.Close()
-
-	// Get the airport name from the form
-	name := r.FormValue("name")
-	if name == "" {
-		http.Error(w, "Airport name is required", http.StatusBadRequest)
-		return
-	}
-
-	// Initialize GCS client
-	creds := option.WithCredentialsFile("./creds/dummy.json")
-	ctx := context.Background()
-	client, err := storage.NewClient(ctx, creds)
-	if err != nil {
-		http.Error(w, "Failed to create GCS client", http.StatusInternalServerError)
-		return
-	}
-	defer client.Close()
-
-	// Define GCS bucket name and object name (file path)
-	bucketName := "bd-airport-data"
-	objectName := fmt.Sprintf("%s-%s", name, handler.Filename)
-
-	// Upload image to GCS
-	bucket := client.Bucket(bucketName)
-	object := bucket.Object(objectName)
-	wc := object.NewWriter(ctx)
-
-	if _, err = io.Copy(wc, file); err != nil {
-		http.Error(w, "Error uploading file", http.StatusInternalServerError)
-		return
-	}
-	if err := wc.Close(); err != nil {
-		http.Error(w, "Error closing writer", http.StatusInternalServerError)
-		return
-	}
-
-	// Construct the GCS URL
-	imageURL := fmt.Sprintf("https://storage.googleapis.com/%s/%s", bucketName, objectName)
-
-	// Update the in-memory airport data by matching the name
-	updated := false
-	for i := range airports {
-		if airports[i].Name == name {
-			airports[i].ImageURL = imageURL
-			updated = true
-			break
-		}
-	}
-
-	if !updated {
-		http.Error(w, "Airport not found", http.StatusNotFound)
-		return
-	}
-
-	// Respond with success
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(map[string]string{
-		"message":   "Image uploaded successfully",
-		"image_url": imageURL,
-	})
 }
 
 
