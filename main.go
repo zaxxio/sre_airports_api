@@ -87,7 +87,7 @@ func UpdateAirportImage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Initialize GCS client
-	creds := option.WithCredentialsFile("./creds/dummy.json")
+	creds := option.WithCredentialsFile("./dummy/dummy.json")
 	ctx := context.Background()
 	client, err := storage.NewClient(ctx, creds)
 	if err != nil {

@@ -7,6 +7,7 @@ RUN go mod download
 COPY . .
 RUN go build -o main .
 
+
 # Second Stage with lightweight docker container image
 FROM alpine:latest
 WORKDIR /root/
