@@ -15,5 +15,5 @@ https://github.com/zaxxio/sre_airports_api/actions/runs/11040296438/job/30667945
 https://hub.docker.com/repository/docker/polymerpro/sre-airports-api
 
 # Kubernetes Endpoint to check the services
-http://34.135.84.233:8080/airports
+http://34.31.147.248:8080/airports
 
