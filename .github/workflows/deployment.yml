@@ -9,7 +9,7 @@ env:
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}  
   DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}        
   IMAGE_NAME: sre-airports-api
-  IMAGE_TAG: latest
+  IMAGE_TAG: latest-v1
   CLUSTER_NAME: ${{ secrets.CLUSTER_ENDPOINT }}
 
 jobs:
